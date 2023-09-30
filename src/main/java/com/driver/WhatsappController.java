@@ -93,7 +93,7 @@ public class WhatsappController {
           try{
               return whatsappService.removeUser(user);
           }catch(Exception e){
-              return -1;
+              return 9;
           }
     }
 
