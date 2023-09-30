@@ -74,9 +74,7 @@ public class WhatsappRepo {
         if(!groupNameToGroupDb.containsKey(group.getName())){
             throw new Exception("Group does not exist");
         }
-        if(!userDb.containsKey(user.getMobile())){
-              throw new Exception("User Not Found");
-        }
+
         if(!userGroupNameDb.get(user.getMobile()).equals(group.getName())){
             throw new Exception("You are not allowed to send message");
         }
