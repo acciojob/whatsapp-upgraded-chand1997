@@ -93,6 +93,7 @@ public class WhatsappController {
           try{
               return whatsappService.removeUser(user);
           }catch(Exception e){
+              System.out.println(e.getMessage());
               return -1;
           }
     }

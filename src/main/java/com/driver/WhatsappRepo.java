@@ -87,6 +87,7 @@ public class WhatsappRepo {
             userMobileToMessageIdsDb.put(user.getMobile(),new ArrayList<>());
         }
         userMobileToMessageIdsDb.get(user.getMobile()).add(message.getId());
+        messageIdToMessageDb.put(message.getId(),message);
 
         return groupNameToMessageIdsDb.get(group.getName()).size();
 
@@ -116,6 +117,7 @@ public class WhatsappRepo {
                 throw new Exception("Cannot remove admin");
             }
         }
+        userDb.remove(user.getMobile());
         String groupName=userGroupNameDb.get(user.getMobile());
         userGroupNameDb.remove(user.getMobile());
        List<Integer> messageIds= userMobileToMessageIdsDb.get(user.getMobile());
