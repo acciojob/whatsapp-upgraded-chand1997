@@ -27,7 +27,12 @@ public class WhatsappController {
         //If the mobile number exists in database, throw "User already exists" exception
         //Otherwise, create the user and return "SUCCESS"
 
-        return whatsappService.createUser(name, mobile);
+        try{
+            return whatsappService.createUser(name, mobile);
+        }catch(Exception e){
+            return e.getMessage();
+        }
+
     }
 
     @PostMapping("/add-group")
@@ -57,8 +62,12 @@ public class WhatsappController {
         //Throw "Group does not exist" if the mentioned group does not exist
         //Throw "You are not allowed to send message" if the sender is not a member of the group
         //If the message is sent successfully, return the final number of messages in that group.
+        try{
+            return whatsappService.sendMessage(message, sender, group);
+        }catch(Exception e){
+            return -1;
+        }
 
-        return whatsappService.sendMessage(message, sender, group);
     }
     @PutMapping("/change-admin")
     public String changeAdmin(User approver, User user, Group group) throws Exception{
@@ -66,8 +75,12 @@ public class WhatsappController {
         //Throw "Approver does not have rights" if the approver is not the current admin of the group
         //Throw "User is not a participant" if the user is not a part of the group
         //Change the admin of the group to "user" and return "SUCCESS". Note that at one time there is only one admin and the admin rights are transferred from approver to user.
+        try{
+            return whatsappService.changeAdmin(approver, user, group);
+        }catch(Exception e){
+            return e.getMessage();
+        }
 
-        return whatsappService.changeAdmin(approver, user, group);
     }
 
     @DeleteMapping("/remove-user")
@@ -77,8 +90,11 @@ public class WhatsappController {
         //If user is found in a group and it is the admin, throw "Cannot remove admin" exception
         //If user is not the admin, remove the user from the group, remove all its messages from all the databases, and update relevant attributes accordingly.
         //If user is removed successfully, return (the updated number of users in the group + the updated number of messages in group + the updated number of overall messages)
-
-        return whatsappService.removeUser(user);
+          try{
+              return whatsappService.removeUser(user);
+          }catch(Exception e){
+              return -1;
+          }
     }
 
     @GetMapping("/find-messages")
@@ -86,7 +102,11 @@ public class WhatsappController {
         // This is a bonus problem and does not contains any marks
         // Find the Kth latest message between start and end (excluding start and end)
         // If the number of messages between given time is less than K, throw "K is greater than the number of messages" exception
+       try{
+           return whatsappService.findMessage(start, end, K);
+       }catch(Exception e){
+           return e.getMessage();
+       }
 
-        return whatsappService.findMessage(start, end, K);
     }
 }
